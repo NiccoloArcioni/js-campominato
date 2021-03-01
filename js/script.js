@@ -27,33 +27,21 @@ function isDuplicate(array, x) {
     return bool;
 }
 
-// Funzione rimozione duplicati bombe
-function removeArrayDuplicate(array, difficulty) {
-    //ordinamento array
-    array = array.sort(function(a, b){
-        return a - b;
-    });
 
-    for (var i = 0, j = 1; i < array.length; i++, j++) {
-        if (array[i] == array[j]) {
-            array[j] = (rndNum(1, difficulty));
-            array = array.sort(function (a, b) {
-                return a - b;
-            });
-            i--;
-            j--;
-        }
-    }
-    return array;
-}
-
-// Funzione genera bombe
+// Funzione genera bombe senza dupicati
 function generateBombs(difficulty) {
     var bombArray = [];
     var bombArrayLength = 16;
     for (var i = 0; i < bombArrayLength; i++) {
-        bombArray.push(rndNum(1, difficulty));
+        var num = rndNum(1, difficulty);
+        while (isDuplicate(bombArray, num)) {
+            num = rndNum(1, difficulty);
+        }
+        bombArray.push(num);
     }
+    bombArray = bombArray.sort(function (a, b) {
+        return a - b;
+    });
     return bombArray;
 }
 
@@ -63,18 +51,14 @@ submit.addEventListener('click',
     function() {
         // variabili
         var difficulty = parseInt(document.getElementById('ms_game_difficulty').value);
-        console.log(difficulty);
+        console.log('max-random: ' + difficulty);
 
         var bombArray = generateBombs(difficulty);
-        console.log(bombArray);
-
-        var bombArrayNoDup = removeArrayDuplicate(bombArray, difficulty);
-        console.log(bombArrayNoDup);
+        console.log('bombArray: ' + bombArray);
 
         var userArray = [];
         const userArrayLength = difficulty - 16;
         var counter = -1;
-        var topscore = 0;
 
         // inserimento numeri utente
         do {
@@ -91,9 +75,9 @@ submit.addEventListener('click',
             counter += 1;
         } while ((userArray.length < userArrayLength) && (isDuplicate(bombArray, userNum) == false));
 
-        console.log(userNum);
-        console.log(userArray);
-        console.log(isDuplicate(bombArray, userNum));
+        console.log('ultimo numero inserito ' + userNum);
+        console.log('Array numeri inseriti dall\'utente: ' + userArray);
+        console.log('hai colpito una bomba: ' + isDuplicate(bombArray, userNum));
         console.log("hai fatto " + counter);
 
         // stampa punteggio
