@@ -9,7 +9,8 @@ BONUS: (da fare solo se funziona tutto il resto)
 all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
 con difficoltà 0 => tra 1 e 100
 con difficoltà 1 =>  tra 1 e 80
-con difficoltà 2 => tra 1 e 50 */
+con difficoltà 2 => tra 1 e 50 
+----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 // Funzione numeri random
 function rndNum(min, max) {
@@ -28,17 +29,16 @@ function isDuplicate(array, x) {
 }
 
 // Funzione genera bombe senza dupicati
-function generateBombs(difficulty) {
+function generateBombs(minRndNum, difficulty) {
     var bombArray = [];
-    var bombArrayLength = 16;
     for (var i = 0; i < bombArrayLength; i++) {
-        var num = rndNum(1, difficulty);
+        var num = rndNum(minRndNum, difficulty);
         while (isDuplicate(bombArray, num)) {
-            num = rndNum(1, difficulty);
+            num = rndNum(minRndNum, difficulty);
         }
         bombArray.push(num);
     }
-    bombArray = bombArray.sort(function (a, b) {
+    bombArray = bombArray.sort(function (a, b) { // ordina array con ordine crescente
         return a - b;
     });
     return bombArray;
@@ -46,6 +46,9 @@ function generateBombs(difficulty) {
 
 // variabile submit
 var submit = document.getElementById('submit');
+// const
+const minRndNumGenerate = 1;
+const bombArrayLength = 16;
 
 // evento al click submit
 submit.addEventListener('click', 
@@ -55,12 +58,12 @@ submit.addEventListener('click',
         console.log('max-random: ' + difficulty);
 
         // genera array
-        var bombArray = generateBombs(difficulty);
+        var userArrayLength = difficulty - bombArrayLength;
+        var bombArray = generateBombs(minRndNumGenerate ,difficulty);
         console.log('bombArray: ' + bombArray);
 
         // array utente e contatore
         var userArray = [];
-        const userArrayLength = difficulty - 16;
         var counter = -1;
 
         // inserimento numeri utente
