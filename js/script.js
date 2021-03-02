@@ -13,7 +13,7 @@ con difficoltà 2 => tra 1 e 50 */
 
 // Funzione numeri random
 function rndNum(min, max) {
-    return Math.floor(Math.random() * (max- min + 1) + min);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 } 
 
 // Funzione controllo duplicato utente
@@ -26,7 +26,6 @@ function isDuplicate(array, x) {
         }
     return bool;
 }
-
 
 // Funzione genera bombe senza dupicati
 function generateBombs(difficulty) {
@@ -45,17 +44,21 @@ function generateBombs(difficulty) {
     return bombArray;
 }
 
+// variabile submit
 var submit = document.getElementById('submit');
 
+// evento al click submit
 submit.addEventListener('click', 
     function() {
-        // variabili
+        // difficoltà partita
         var difficulty = parseInt(document.getElementById('ms_game_difficulty').value);
         console.log('max-random: ' + difficulty);
 
+        // genera array
         var bombArray = generateBombs(difficulty);
         console.log('bombArray: ' + bombArray);
 
+        // array utente e contatore
         var userArray = [];
         const userArrayLength = difficulty - 16;
         var counter = -1;
@@ -63,17 +66,17 @@ submit.addEventListener('click',
         // inserimento numeri utente
         do {
             var userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
-            while (userNum <= 0 || userNum > difficulty || isNaN(userNum)) {
+            while (userNum <= 0 || userNum > difficulty || isNaN(userNum)) {  //controllo se il numero è compreso nel range
                 alert('Inserisci un numero tra 1 e difficulty');
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
-            while (isDuplicate(userArray, userNum)) {
+            while (isDuplicate(userArray, userNum)) {  // controllo duplicati numero utente
                 alert('Hai già inserito questo numero, ritenta con un altro');
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
             userArray.push(userNum);
             counter += 1;
-        } while ((userArray.length < userArrayLength) && (isDuplicate(bombArray, userNum) == false));
+        } while ((userArray.length < userArrayLength) && (isDuplicate(bombArray, userNum) == false)); // controllo vittoria o bomba presa
 
         console.log('ultimo numero inserito ' + userNum);
         console.log('Array numeri inseriti dall\'utente: ' + userArray);
