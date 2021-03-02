@@ -20,7 +20,7 @@ function rndNum(min, max) {
 // Funzione controllo duplicato utente
 function isDuplicate(array, x) {
     var bool = false;
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; ((i < array.length) && (bool == false)); i++) {
             if (array[i] == x) {
                 bool = true;
             }
