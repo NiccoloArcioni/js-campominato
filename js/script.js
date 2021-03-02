@@ -59,18 +59,18 @@ submit.addEventListener('click',
         console.log('max-random: ' + difficulty);
 
         // genera array
-        const userArrayLength = difficulty - bombArrayLength;
+        const userArrayMaxLength = difficulty - bombArrayLength;
         var bombArray = generateBombs(minRndNumGenerate ,difficulty);
         console.log('bombArray: ' + bombArray);
 
         // array utente e contatore
         var userArray = [];
-        var counter = -1;
+        var scoreCounter = -1;
 
         // inserimento numeri utente
         do {
             var userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
-            while (userNum <= 0 || userNum > difficulty || isNaN(userNum)) {  //controllo se il numero è compreso nel range
+            while ((userNum < minRndNumGenerate) || (userNum > difficulty) || (isNaN(userNum))) {  //controllo se il numero è compreso nel range
                 alert('Inserisci un numero tra 1 e ' + difficulty);
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
@@ -79,15 +79,19 @@ submit.addEventListener('click',
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
             userArray.push(userNum);
-            counter += 1;
-        } while ((userArray.length < userArrayLength) && (isDuplicate(bombArray, userNum) == false)); // controllo vittoria o bomba presa
+            scoreCounter += 1;
+        } while ((userArray.length < userArrayMaxLength) && (!(isDuplicate(bombArray, userNum)))); // controllo vittoria o bomba presa
+
+        if (userArray.length = userArrayMaxLength) {
+            scoreCounter = "Max Score!!";
+        }
 
         console.log('ultimo numero inserito ' + userNum);
         console.log('Array numeri inseriti dall\'utente: ' + userArray);
         console.log('hai colpito una bomba: ' + isDuplicate(bombArray, userNum));
-        console.log("hai fatto " + counter);
+        console.log("hai fatto " + scoreCounter);
 
         // stampa punteggio
-        document.getElementById('ms_counter').innerHTML = "Hai fatto: " + counter;
+        document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
     }
 );
