@@ -46,6 +46,7 @@ function generateBombs(minRndNum, difficulty) {
 
 // variabile submit
 var submit = document.getElementById('submit');
+
 // const
 const minRndNumGenerate = 1;
 const bombArrayLength = 16;
@@ -58,7 +59,7 @@ submit.addEventListener('click',
         console.log('max-random: ' + difficulty);
 
         // genera array
-        var userArrayLength = difficulty - bombArrayLength;
+        const userArrayLength = difficulty - bombArrayLength;
         var bombArray = generateBombs(minRndNumGenerate ,difficulty);
         console.log('bombArray: ' + bombArray);
 
@@ -70,7 +71,7 @@ submit.addEventListener('click',
         do {
             var userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             while (userNum <= 0 || userNum > difficulty || isNaN(userNum)) {  //controllo se il numero è compreso nel range
-                alert('Inserisci un numero tra 1 e difficulty');
+                alert('Inserisci un numero tra 1 e ' + difficulty);
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
             while (isDuplicate(userArray, userNum)) {  // controllo duplicati numero utente
