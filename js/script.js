@@ -82,7 +82,11 @@ submit.addEventListener('click',
             scoreCounter += 1;
         } while ((userArray.length < userArrayMaxLength) && (!(isDuplicate(bombArray, userNum)))); // controllo vittoria o bomba presa
 
-        if (userArray.length = userArrayMaxLength) {
+        if (isDuplicate(bombArray, userNum)) {
+            alert('Hai preso una bomba');
+        }
+
+        if (userArray.length == userArrayMaxLength) {
             scoreCounter = "Max Score!!";
         }
 
