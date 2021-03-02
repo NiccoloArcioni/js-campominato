@@ -51,11 +51,25 @@ var submit = document.getElementById('submit');
 const minRndNumGenerate = 1;
 const bombArrayLength = 16;
 
+// top score
+var topScore = 0;
+document.getElementById('ms_top_score').innerHTML = "Top Score: " + topScore;
+
 // evento al click submit
 submit.addEventListener('click', 
     function() {
         // difficoltà partita
-        var difficulty = parseInt(document.getElementById('ms_game_difficulty').value);
+        var difficulty = document.getElementById('ms_game_difficulty').value;
+        switch(difficulty) {
+            case "normal":
+                difficulty = 80;
+                break;
+            case "hard":
+                difficulty = 50;
+                break;
+            default:
+                difficulty = 100;
+        }
         console.log('max-random: ' + difficulty);
 
         // genera array
@@ -97,5 +111,11 @@ submit.addEventListener('click',
 
         // stampa punteggio
         document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
+
+        if(topScore < scoreCounter) {
+            topScore = scoreCounter;
+        }
+
+        document.getElementById('ms_top_score').innerHTML = "Top Score: " +topScore;
     }
 );
