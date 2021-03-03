@@ -5,18 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minefield</title>
+    <link rel="stylesheet" href="css/master.css">
 </head>
 <body>
-    <label>Choose difficulty</label>
-    <select name="difficulty" id="ms_game_difficulty" required>
-        <option value="easy">Easy</option>
-        <option value="normal">Normal</option>
-        <option value="hard">Hard</option>
-    </select>
-    <button type="submit" class="btn btn-default" name="submit" id="submit">Play game</button>
-
-    <h3 id="ms_top_score"></h3>
-    <h4 id="ms_counter"></h4>
+    <header>
+        <div class="ms_header_title ms_margin_top_60">
+            <h1>Minefield</h1>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="ms_wrapper_50 ms_margin_top_60">
+                <div class="ms_form ms_margin_top_30 ms_margin_bottom_30">
+                    <label>Choose difficulty</label>
+                    <select name="difficulty" id="ms_game_difficulty" required>
+                        <option value="easy">Easy</option>
+                        <option value="normal">Normal</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                    <button type="submit" class="btn btn-default" name="submit" id="submit">Play game</button>
+                </div>
+                <div class="ms_score">
+                    <h3 id="ms_top_score"></h3>
+                    <h4 id="ms_counter"></h4>
+                </div>
+                <div class="ms_game_table ms_margin_top_30">
+                    <ul id="ms_cell_container">
+                        
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
     
     <script src="js/script.js">
     </script>
