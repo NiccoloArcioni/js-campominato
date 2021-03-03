@@ -44,8 +44,7 @@ function generateBombs(minRndNum, difficulty) {
     return bombArray;
 }
 
-// variabile submit
-var submit = document.getElementById('submit');
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 // const
 const minRndNumGenerate = 1;
@@ -55,20 +54,25 @@ const bombArrayLength = 16;
 var topScore = 0;
 document.getElementById('ms_top_score').innerHTML = "Top Score: " + topScore;
 
+// variabile submit
+var submit = document.getElementById('submit');
+
+
 // evento al click submit
 submit.addEventListener('click', 
     function() {
         // difficoltà partita
         var difficulty = document.getElementById('ms_game_difficulty').value;
         switch(difficulty) {
+            case "easy":
+                difficulty = 100;
+                break;
             case "normal":
                 difficulty = 80;
                 break;
             case "hard":
                 difficulty = 50;
                 break;
-            default:
-                difficulty = 100;
         }
         console.log('max-random: ' + difficulty);
 
@@ -96,10 +100,12 @@ submit.addEventListener('click',
             scoreCounter += 1;
         } while ((userArray.length < userArrayMaxLength) && (!(isInArray(bombArray, userNum)))); // controllo vittoria o bomba presa
 
+        // se esce da while per isInArray true 
         if (isInArray(bombArray, userNum)) {
             alert('Hai preso una bomba');
         }
 
+        // se esce da while per lunghezza userArray 
         if (userArray.length == userArrayMaxLength) {
             scoreCounter = "Max Score!!";
         }
@@ -112,10 +118,12 @@ submit.addEventListener('click',
         // stampa punteggio
         document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
 
-        if(topScore < scoreCounter) {
+        // modifica top score
+        if((topScore < scoreCounter) || (scoreCounter = "Max Score!!")) {
             topScore = scoreCounter;
         }
 
+        // stampa top score
         document.getElementById('ms_top_score').innerHTML = "Top Score: " +topScore;
     }
 );
