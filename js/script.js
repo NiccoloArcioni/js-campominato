@@ -76,6 +76,12 @@ submit.addEventListener('click',
         }
         console.log('max-random: ' + difficulty);
 
+        document.getElementById('ms_cell_container').innerHTML = "";
+
+        for (var i = 1; i <= difficulty; i++) {
+            document.getElementById('ms_cell_container').innerHTML += '<li id=cell' + i + '" value:' + i + '>' + i + '</li>';
+        }
+
         // genera array
         const userArrayMaxLength = difficulty - bombArrayLength;
         var bombArray = generateBombs(minRndNumGenerate ,difficulty);
