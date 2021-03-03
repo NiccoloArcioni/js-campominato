@@ -120,7 +120,7 @@ submit.addEventListener('click',
         document.getElementById('ms_cell_container').innerHTML = "";
 
         for (var i = 1; i <= difficulty; i++) {
-            document.getElementById('ms_cell_container').innerHTML += '<li id=cell' + i + ' value=' + i + ' onclick="isBomb(this)">' + i + '</li>';
+            document.getElementById('ms_cell_container').innerHTML += '<li id=cell' + i + ' value=' + i + ' onclick="isBomb(this)"></li>';
         }
 
         // genera array

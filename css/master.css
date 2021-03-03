@@ -102,6 +102,10 @@ ul#ms_cell_container li.ms_success {
 }
 
 ul#ms_cell_container li.ms_bomb {
+    background-image: url('../img/bomb.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     background-color: red;
 }   
 
