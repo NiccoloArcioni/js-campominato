@@ -18,7 +18,7 @@ function rndNum(min, max) {
 } 
 
 // Funzione controllo duplicato utente
-function isDuplicate(array, x) {
+function isInArray(array, x) {
     var bool = false;
     for (var i = 0; ((i < array.length) && (bool == false)); i++) {
             if (array[i] == x) {
@@ -33,7 +33,7 @@ function generateBombs(minRndNum, difficulty) {
     var bombArray = [];
     for (var i = 0; i < bombArrayLength; i++) {
         var num = rndNum(minRndNum, difficulty);
-        while (isDuplicate(bombArray, num)) {
+        while (isInArray(bombArray, num)) {
             num = rndNum(minRndNum, difficulty);
         }
         bombArray.push(num);
@@ -88,15 +88,15 @@ submit.addEventListener('click',
                 alert('Inserisci un numero tra 1 e ' + difficulty);
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
-            while (isDuplicate(userArray, userNum)) {  // controllo duplicati numero utente
+            while (isInArray(userArray, userNum)) {  // controllo duplicati numero utente
                 alert('Hai già inserito questo numero, ritenta con un altro');
                 userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
             }
             userArray.push(userNum);
             scoreCounter += 1;
-        } while ((userArray.length < userArrayMaxLength) && (!(isDuplicate(bombArray, userNum)))); // controllo vittoria o bomba presa
+        } while ((userArray.length < userArrayMaxLength) && (!(isInArray(bombArray, userNum)))); // controllo vittoria o bomba presa
 
-        if (isDuplicate(bombArray, userNum)) {
+        if (isInArray(bombArray, userNum)) {
             alert('Hai preso una bomba');
         }
 
@@ -106,7 +106,7 @@ submit.addEventListener('click',
 
         console.log('ultimo numero inserito ' + userNum);
         console.log('Array numeri inseriti dall\'utente: ' + userArray);
-        console.log('hai colpito una bomba: ' + isDuplicate(bombArray, userNum));
+        console.log('hai colpito una bomba: ' + isInArray(bombArray, userNum));
         console.log("hai fatto " + scoreCounter);
 
         // stampa punteggio
