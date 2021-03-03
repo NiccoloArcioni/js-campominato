@@ -87,14 +87,14 @@ submit.addEventListener('click',
 
         // inserimento numeri utente
         do {
-            var userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
+            var userNum = parseInt(prompt('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty));
             while ((userNum < minRndNumGenerate) || (userNum > difficulty) || (isNaN(userNum))) {  //controllo se il numero è compreso nel range
-                alert('Inserisci un numero tra 1 e ' + difficulty);
-                userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
+                alert('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty);
+                userNum = parseInt(prompt('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty));
             }
             while (isInArray(userArray, userNum)) {  // controllo duplicati numero utente
                 alert('Hai già inserito questo numero, ritenta con un altro');
-                userNum = parseInt(prompt('Inserisci un numero tra 1 e ' + difficulty));
+                userNum = parseInt(prompt('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty));
             }
             userArray.push(userNum);
             scoreCounter += 1;
@@ -102,7 +102,7 @@ submit.addEventListener('click',
 
         // se esce da while per isInArray true 
         if (isInArray(bombArray, userNum)) {
-            alert('Hai preso una bomba');
+            alert('You stepped on a land mine!');
         }
 
         // se esce da while per lunghezza userArray 
@@ -119,7 +119,7 @@ submit.addEventListener('click',
         document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
 
         // modifica top score
-        if((topScore < scoreCounter) || (scoreCounter = "Max Score!!")) {
+        if((topScore < scoreCounter) || (scoreCounter == "Max Score!!")) {
             topScore = scoreCounter;
         }
 
