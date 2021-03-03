@@ -44,6 +44,47 @@ function generateBombs(minRndNum, difficulty) {
     return bombArray;
 }
 
+function isBomb(li) {
+    if ((!isInArray(bombArray, li.value)) && (userArray.length < userArrayMaxLength - 1)) {
+        if (isInArray(userArray, li.value)) {
+            alert('Hai già cliccato questa casella!');
+        } else {
+            document.getElementById(li.id).className = "ms_success";
+            userArray.push(li.value);
+            scoreCounter += 1;
+            document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
+        }
+    } else {
+        gameOver(li.value);
+    }
+}
+
+function gameOver(num) {
+    if (isInArray(bombArray, num)) {
+        alert('You stepped on a land mine!');
+        
+    } else {
+        alert('You Win! Max Score!!')
+        scoreCounter = "Max Score!!";
+    }
+
+    // rende visibili le bombe
+    for (var i = 0; i < bombArrayLength; i++) {
+        document.getElementById('cell' + bombArray[i]).className = "ms_bomb";
+    }
+
+    // stampa punteggio
+    document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
+
+    // modifica top score
+    if ((topScore < scoreCounter) || (scoreCounter == "Max Score!!")) {
+        topScore = scoreCounter;
+    }
+
+    // stampa top score
+    document.getElementById('ms_top_score').innerHTML = "Top Score: " + topScore;
+}
+
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 // const
@@ -79,57 +120,16 @@ submit.addEventListener('click',
         document.getElementById('ms_cell_container').innerHTML = "";
 
         for (var i = 1; i <= difficulty; i++) {
-            document.getElementById('ms_cell_container').innerHTML += '<li id=cell' + i + '" value:' + i + '>' + i + '</li>';
+            document.getElementById('ms_cell_container').innerHTML += '<li id=cell' + i + ' value=' + i + ' onclick="isBomb(this)">' + i + '</li>';
         }
 
         // genera array
-        const userArrayMaxLength = difficulty - bombArrayLength;
-        var bombArray = generateBombs(minRndNumGenerate ,difficulty);
+        userArrayMaxLength = difficulty - bombArrayLength;
+        bombArray = generateBombs(minRndNumGenerate ,difficulty);
         console.log('bombArray: ' + bombArray);
 
         // array utente e contatore
-        var userArray = [];
-        var scoreCounter = -1;
-
-        // inserimento numeri utente
-        do {
-            var userNum = parseInt(prompt('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty));
-            while ((userNum < minRndNumGenerate) || (userNum > difficulty) || (isNaN(userNum))) {  //controllo se il numero è compreso nel range
-                alert('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty);
-                userNum = parseInt(prompt('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty));
-            }
-            while (isInArray(userArray, userNum)) {  // controllo duplicati numero utente
-                alert('Hai già inserito questo numero, ritenta con un altro');
-                userNum = parseInt(prompt('Pick a number between ' + minRndNumGenerate + ' and ' + difficulty));
-            }
-            userArray.push(userNum);
-            scoreCounter += 1;
-        } while ((userArray.length < userArrayMaxLength) && (!(isInArray(bombArray, userNum)))); // controllo vittoria o bomba presa
-
-        // se esce da while per isInArray true 
-        if (isInArray(bombArray, userNum)) {
-            alert('You stepped on a land mine!');
-        }
-
-        // se esce da while per lunghezza userArray 
-        if (userArray.length == userArrayMaxLength) {
-            scoreCounter = "Max Score!!";
-        }
-
-        console.log('ultimo numero inserito ' + userNum);
-        console.log('Array numeri inseriti dall\'utente: ' + userArray);
-        console.log('hai colpito una bomba: ' + isInArray(bombArray, userNum));
-        console.log("hai fatto " + scoreCounter);
-
-        // stampa punteggio
-        document.getElementById('ms_counter').innerHTML = "Score: " + scoreCounter;
-
-        // modifica top score
-        if((topScore < scoreCounter) || (scoreCounter == "Max Score!!")) {
-            topScore = scoreCounter;
-        }
-
-        // stampa top score
-        document.getElementById('ms_top_score').innerHTML = "Top Score: " +topScore;
+        userArray = [];
+        scoreCounter = 0;
     }
 );

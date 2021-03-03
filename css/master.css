@@ -97,10 +97,28 @@ ul#ms_cell_container li {
     background-color: rgb(102, 101, 101);
 }
 
-.ms_success {
+ul#ms_cell_container li.ms_success {
     background-color: green;
 }
 
-.ms_bomb {
+ul#ms_cell_container li.ms_bomb {
     background-color: red;
+}   
+
+@media all and (max-width: 565px) {
+    .ms_wrapper_50 {
+        width: 100%;
+    }
+
+    .ms_wrapper_50 .ms_score {
+        width: 90%;
+        margin: 0 auto;
+    }
+    ul#ms_cell_container {
+        width: 100vw;
+    }
+    ul#ms_cell_container li {
+        width: 10vw;
+        height: 10vw;
+    }
 }
